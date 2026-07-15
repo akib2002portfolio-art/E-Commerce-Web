@@ -1,0 +1,8 @@
+import type { BlogPost } from "./types";
+
+export const blogPosts: BlogPost[] = [
+  { id: "b1", slug: "notes-from-the-atelier", title: "Notes from the atelier", excerpt: "How Atelier 01 came together — the fabric mills, the false starts, and the six samples of the coat.", author: "Studio Team", date: "2026-05-14", category: "Studio", readingTime: "6 min", body: "The first collection took eighteen months. We began with the coat and worked outward — trouser, shirt, dress, shoe. Every piece had to earn its place." },
+  { id: "b2", slug: "on-linen", title: "On linen, and why we keep coming back to it", excerpt: "A material that resists trend. A short essay on Belgian flax, wrinkle economics, and dressing for real weather.", author: "Editor", date: "2026-04-02", category: "Materials", readingTime: "4 min", body: "Linen is not a fabric that flatters photography. It flatters wearing. That has always been the point." },
+  { id: "b3", slug: "care-and-repair", title: "Care and repair — the long view", excerpt: "Our repair programme, and why the second life of a piece matters as much as the first.", author: "Studio Team", date: "2026-03-11", category: "Craft", readingTime: "5 min", body: "Every BD Collections piece can be returned to the atelier for repair." },
+  { id: "b4", slug: "the-noir-edit", title: "The Noir Edit — five ways to wear black", excerpt: "Assembling a wardrobe around a single colour without ever looking uniform.", author: "Editor", date: "2026-02-20", category: "Style", readingTime: "3 min", body: "Black is not one colour. It is a family of them." },
+];

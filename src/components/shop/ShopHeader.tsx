@@ -1,0 +1,15 @@
+import { Link } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
+
+export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
+  return (
+    <nav className="flex items-center gap-1 text-xs text-taupe">
+      {items.map((it, i) => (
+        <span key={i} className="flex items-center gap-1">
+          {it.href ? <Link to={it.href} className="hover:text-ink">{it.label}</Link> : <span className="text-ink">{it.label}</span>}
+          {i < items.length - 1 && <ChevronRight className="h-3 w-3" />}
+        </span>
+      ))}
+    </nav>
+  );
+}

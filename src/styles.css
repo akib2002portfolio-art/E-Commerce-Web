@@ -1,0 +1,216 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * BD Collections — modern luxury design system.
+ * Warm off-white canvas, deep charcoal ink, quiet taupe, single editorial sienna.
+ * All colors oklch. Fonts loaded via <link> in __root.tsx.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-ink: var(--ink);
+  --color-canvas: var(--canvas);
+  --color-bone: var(--bone);
+  --color-taupe: var(--taupe);
+  --color-sienna: var(--sienna);
+  --color-hairline: var(--hairline);
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.25rem;
+  --canvas: oklch(0.972 0.007 80);
+  --bone: oklch(0.945 0.012 78);
+  --ink: oklch(0.18 0.012 60);
+  --taupe: oklch(0.55 0.015 60);
+  --sienna: oklch(0.55 0.13 42);
+  --hairline: oklch(0.86 0.01 70);
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--canvas);
+  --card-foreground: var(--ink);
+  --popover: var(--canvas);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--canvas);
+  --secondary: var(--bone);
+  --secondary-foreground: var(--ink);
+  --muted: var(--bone);
+  --muted-foreground: var(--taupe);
+  --accent: var(--sienna);
+  --accent-foreground: var(--canvas);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: var(--canvas);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--ink);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: var(--canvas);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--canvas);
+  --sidebar-accent: var(--bone);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--ink);
+}
+
+.dark {
+  --canvas: oklch(0.16 0.008 60);
+  --bone: oklch(0.22 0.01 60);
+  --ink: oklch(0.96 0.005 80);
+  --taupe: oklch(0.7 0.012 60);
+  --sienna: oklch(0.65 0.14 42);
+  --hairline: oklch(1 0 0 / 12%);
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: oklch(0.2 0.01 60);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.2 0.01 60);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--canvas);
+  --secondary: var(--bone);
+  --secondary-foreground: var(--ink);
+  --muted: var(--bone);
+  --muted-foreground: var(--taupe);
+  --accent: var(--sienna);
+  --accent-foreground: var(--canvas);
+  --destructive: oklch(0.7 0.19 22);
+  --destructive-foreground: var(--canvas);
+  --border: var(--hairline);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--ink);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: var(--canvas);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--canvas);
+  --sidebar-accent: var(--bone);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--ink);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--ink);
+    color: var(--canvas);
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  font-weight: 500;
+}
+
+@utility hairline {
+  border-color: var(--hairline);
+}
+
+@utility container-luxe {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: 1440px;
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 4rem;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
