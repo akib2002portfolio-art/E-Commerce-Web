@@ -1,20 +1,24 @@
-import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import { RequireAdmin } from "@/features/admin/auth/guards/RequireAdmin";
-import { AdminLayout } from "@/features/admin/shared/components/AdminLayout";
-import { ProductToolbar } from "@/features/admin/products/components/ProductToolbar";
+import { useProducts } from "@/features/admin/products/hooks/useProducts";
 import { ProductsTable } from "@/features/admin/products/components/ProductsTable";
-import { ProductModal } from "@/features/admin/products/components/ProductModal";
-import { ProductForm } from "@/features/admin/products/components/ProductForm";
-import { MOCK_PRODUCTS } from "@/features/admin/products/constants/mockProducts";
+import { ProductToolbar } from "@/features/admin/products/components/ProductToolbar";
+import { AdminLayout } from "@/features/admin/shared/components/AdminLayout";
 
 export const Route = createFileRoute("/admin/products")({
   component: AdminProductsPage,
 });
 
 function AdminProductsPage() {
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const navigate = useNavigate();
+
+  const {
+    products,
+    loading,
+    error,
+    deleteProduct,
+  } = useProducts();
 
   return (
     <RequireAdmin>
@@ -23,19 +27,20 @@ function AdminProductsPage() {
         subtitle="Manage your product catalog."
       >
         <ProductToolbar
-          productCount={MOCK_PRODUCTS.length}
-          onAddProduct={() => setShowCreateModal(true)}
+          productCount={products.length}
+          onAddProduct={() =>
+            navigate({
+              to: "/admin/new-product",
+            })
+          }
         />
 
-        <ProductsTable />
-
-        <ProductModal
-          open={showCreateModal}
-          title="Add Product"
-          onClose={() => setShowCreateModal(false)}
-        >
-          <ProductForm mode="create" />
-        </ProductModal>
+        <ProductsTable
+          products={products}
+          loading={loading}
+          error={error}
+          onDelete={deleteProduct}
+        />
       </AdminLayout>
     </RequireAdmin>
   );

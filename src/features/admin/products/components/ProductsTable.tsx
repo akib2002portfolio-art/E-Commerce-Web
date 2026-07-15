@@ -1,29 +1,73 @@
-import { MOCK_PRODUCTS } from "../constants/mockProducts";
+import type { Product } from "../types/product";
 import { ProductRow } from "./ProductRow";
 
-export function ProductsTable() {
+interface ProductsTableProps {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+  onDelete: (id: string) => Promise<void>;
+}
+
+export function ProductsTable({
+  products,
+  loading,
+  error,
+  onDelete,
+}: ProductsTableProps) {
+  if (loading) {
+    return (
+      <div className="rounded-xl border border-hairline bg-canvas p-8 text-center">
+        Loading products...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center text-red-600">
+        {error}
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="rounded-xl border border-hairline bg-canvas p-10 text-center">
+        <h2 className="font-display text-3xl text-ink">
+          No Products Yet
+        </h2>
+
+        <p className="mt-3 text-taupe">
+          Create your first product using the
+          "Add Product" button.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-hairline bg-canvas shadow-sm">
-      <table className="w-full border-collapse">
-        <thead className="bg-bone text-left text-xs uppercase tracking-[0.22em] text-taupe">
-          <tr>
-            <th className="px-6 py-4">Product</th>
-            <th className="px-6 py-4">Category</th>
-            <th className="px-6 py-4">SKU</th>
-            <th className="px-6 py-4">Price</th>
-            <th className="px-6 py-4">Stock</th>
-            <th className="px-6 py-4">Status</th>
-            <th className="px-6 py-4 text-right">
+      <table className="w-full">
+        <thead className="border-b border-hairline bg-bone">
+          <tr className="text-left text-xs uppercase tracking-[0.22em] text-taupe">
+            <th className="px-6 py-5">Product</th>
+            <th className="px-6 py-5">Category</th>
+            <th className="px-6 py-5">SKU</th>
+            <th className="px-6 py-5">Price</th>
+            <th className="px-6 py-5">Stock</th>
+            <th className="px-6 py-5">Status</th>
+            <th className="px-6 py-5 text-right">
               Actions
             </th>
           </tr>
         </thead>
 
         <tbody>
-          {MOCK_PRODUCTS.map((product) => (
+          {products.map((product) => (
             <ProductRow
               key={product.id}
               product={product}
+              onDelete={onDelete}
             />
           ))}
         </tbody>

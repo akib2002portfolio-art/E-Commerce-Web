@@ -1,15 +1,86 @@
-import { MOCK_PRODUCTS } from "../constants/mockProducts";
-import type { Product } from "../types/product";
+import { supabase } from "@/lib/supabase";
+import type {
+  Product,
+  CreateProductInput,
+  UpdateProductInput,
+} from "../types/product";
 
 class ProductService {
   async getProducts(): Promise<Product[]> {
-    return Promise.resolve(MOCK_PRODUCTS);
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return (data ?? []) as Product[];
   }
 
-  async getProduct(id: string): Promise<Product | undefined> {
-    return Promise.resolve(
-      MOCK_PRODUCTS.find((product) => product.id === id),
-    );
+  async getProductById(id: string): Promise<Product | null> {
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data as Product;
+  }
+
+  async createProduct(
+    product: CreateProductInput,
+  ): Promise<Product> {
+    const { data, error } = await supabase
+      .from("products")
+      .insert(product)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data as Product;
+  }
+
+  async updateProduct(
+    product: UpdateProductInput,
+  ): Promise<Product> {
+    const { id, ...updates } = product;
+
+    const { data, error } = await supabase
+      .from("products")
+      .update({
+        ...updates,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data as Product;
+  }
+
+  async deleteProduct(id: string): Promise<void> {
+    const { error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
   }
 }
+
 export const productService = new ProductService();

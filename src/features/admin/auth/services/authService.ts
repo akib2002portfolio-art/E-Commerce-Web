@@ -1,18 +1,4 @@
-/**
- * Mock admin authentication service.
- *
- * This is the single abstraction layer the rest of the admin CMS talks to.
- *
- * Today:
- *  - Mock authentication
- *  - No persistence
- *  - No React
- *  - No Supabase
- *
- * Later:
- *  - Replace ONLY this file with Supabase Auth.
- *  - Hooks, guards, routes and UI remain unchanged.
- */
+import { supabase } from "@/lib/supabase";
 
 export type AdminRole = "owner" | "admin" | "editor";
 
@@ -39,82 +25,74 @@ export interface LogoutResult {
   success: true;
 }
 
-/**
- * Single mock admin user.
- * Reused throughout the mock service to avoid duplicate literals.
- */
-export const mockAdminUser: AdminUser = {
-  id: "admin-1",
-  name: "Administrator",
-  email: "admin@bdcollection.com",
-  role: "admin",
-};
-
-/**
- * Simulates API latency.
- */
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 async function login(
   email: string,
   password: string,
 ): Promise<LoginResult> {
-  await delay(400);
+  const { data, error } =
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (!email.trim() || !password.trim()) {
+  if (error || !data.user) {
     return {
       success: false,
-      error: "Invalid credentials",
+      error: error?.message ?? "Login failed.",
     };
   }
 
   return {
     success: true,
     user: {
-      ...mockAdminUser,
-      email,
+      id: data.user.id,
+      name:
+        data.user.user_metadata?.name ??
+        "Administrator",
+      email: data.user.email ?? "",
+      role: "admin",
     },
   };
 }
 
 async function logout(): Promise<LogoutResult> {
-  await delay(200);
+  await supabase.auth.signOut();
 
   return {
     success: true,
   };
 }
 
-/**
- * Returns the current authenticated admin.
- *
- * NOTE:
- * Returns AdminUser | null because this matches how
- * Supabase/Auth providers behave in production.
- */
 async function getCurrentUser(): Promise<AdminUser | null> {
-  await delay(150);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  return mockAdminUser;
+  if (!user) {
+    return null;
+  }
 
-  // Later:
-  // return null;
+  return {
+    id: user.id,
+    name:
+      user.user_metadata?.name ??
+      "Administrator",
+    email: user.email ?? "",
+    role: "admin",
+  };
 }
 
 async function isAuthenticated(): Promise<boolean> {
-  await delay(100);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  return true;
-
-  // Later:
-  // return !!session;
+  return session !== null;
 }
 
 export const authService = Object.freeze({
   login,
   logout,
-  getCurrentUser,
+ getCurrentUser,
   isAuthenticated,
 });

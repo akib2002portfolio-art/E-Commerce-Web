@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 import { RequireAdmin } from "@/features/admin/auth/guards/RequireAdmin";
 import { AdminLayout } from "@/features/admin/shared/components/AdminLayout";
 import { AdminCard } from "@/features/admin/shared/components/AdminCard";
@@ -16,7 +15,6 @@ function AdminDashboardPage() {
         subtitle="Welcome back to BD Collection CMS."
       >
         <div className="space-y-8">
-          {/* Statistics */}
           <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             <AdminCard
               title="Products"
@@ -43,7 +41,6 @@ function AdminDashboardPage() {
             />
           </section>
 
-          {/* Dashboard Content */}
           <section className="grid gap-6 lg:grid-cols-2">
             <AdminCard title="Quick Actions">
               <div className="flex flex-wrap gap-3">
